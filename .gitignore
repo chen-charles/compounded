@@ -1,0 +1,8 @@
+.tox/
+.vscode/
+.pytest_cache/
+**/__pycache__
+*.html
+build/
+dist/
+*.egg-info/
