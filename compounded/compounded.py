@@ -1,4 +1,3 @@
-import functools
 import inspect
 import logging
 
@@ -64,7 +63,7 @@ class meta_compounded(type):
                     final_calls = list()
 
                     for func in to_be_compounded:
-                        sig = inspect.signature(func, follow_wrapped=False)
+                        sig = inspect.signature(func, follow_wrapped=True)
                         call_param = list()
                         for name in sig.parameters:
                             param = sig.parameters[name]
@@ -134,7 +133,7 @@ d[0] = _wrapped
                     logger.debug('final_args=%s' % final_args)
                     exec(f_str, dict(
                         d=d, f=dct[field], to_be_compounded=to_be_compounded))
-                    dct[field] = functools.wraps(dct[field])(d[0])
+                    dct[field] = d[0]
 
         return super(meta_compounded, cls).__new__(
             cls, original_name, bases, dct)
